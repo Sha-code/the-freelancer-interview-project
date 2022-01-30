@@ -27,7 +27,7 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-  <>
+  <div className="bg-gray-100 px-32 py-10 min-h-screen">
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Routes>
@@ -37,6 +37,6 @@ ReactDOM.render(
         </Routes>
       </BrowserRouter>
     </ApolloProvider>
-  </>,
+  </div>,
   mountingPoint
 )

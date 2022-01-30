@@ -52,9 +52,9 @@ export const typeDefs = gql`
   }
 
   # Todo: Write a mutation to update the current freelancer's profile.
-  # type Mutation {
-  #   ...
-  # }
+  type Mutation {
+    modifyProfile: Profile!
+  }
 `
 
 export const resolvers: Resolvers = {
@@ -89,5 +89,12 @@ export const resolvers: Resolvers = {
    * @Todo
    * Implement the mutation to update the current freelancer's profile.
    */
-  // Mutation: {},
+  Mutation: {
+    modifyProfile(input) {
+      const newProfile = {
+        ...input,
+      }
+      return newProfile
+    },
+  },
 }
