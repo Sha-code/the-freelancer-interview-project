@@ -1,5 +1,5 @@
 import { gql } from 'graphql-tag'
-import { Language, Resolvers } from '../generated/graphql'
+import { Language, Profile, Resolvers } from '../generated/graphql'
 
 /**
  * Use this object mock as if it was retrieved from a database.
@@ -34,12 +34,21 @@ export const typeDefs = gql`
   }
 
   # Todo: Write a type for the freelancer's profile.
-
+  type Profile {
+    id: String!
+    avatar: Avatar!
+    firstname: String!
+    lastname: String!
+    language: Language!
+    birthDate: String!
+    isVisible: Boolean!
+    retribution: Int!
+  }
   type Query {
     helloWorld: String!
 
     # Todo: Write a query to retrieve the current freelancer's profile.
-    # Ex: myProfile: Profile!
+    myProfile: Profile!
   }
 
   # Todo: Write a mutation to update the current freelancer's profile.
@@ -62,6 +71,18 @@ export const resolvers: Resolvers = {
      * @Todo
      * Implement the query to retrieve the current freelancer's profile.
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    myProfile(root, args, context) {
+      const profile: Profile = {
+        ...MOCK_FREELANCER,
+        avatar: {
+          smallUrl: MOCK_FREELANCER.avatar['64x64'],
+          largeUrl: MOCK_FREELANCER.avatar['256x256'],
+          xLargeUrl: MOCK_FREELANCER.avatar['512x512'],
+        },
+      }
+      return profile
+    },
   },
 
   /**

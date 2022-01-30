@@ -1,13 +1,11 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import gql from 'graphql-tag'
 import ReactDOM from 'react-dom'
-
-/**
- * The type `AvatarExampleFragment` in automatically generated.
- * The document can be passed to any graphql client.
- *
- * @example
- * import { AvatarExampleFragment } from './generated/graphql'
- */
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './components/Home'
+import NoMatch from './components/NoMatch'
+import Profile from './components/Profile'
+import './index.css'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AvatarExampleFragmentDocument = gql`
   fragment AvatarExample on Avatar {
@@ -16,7 +14,6 @@ const AvatarExampleFragmentDocument = gql`
     xLargeUrl
   }
 `
-
 const mountingPoint = document.getElementById('root')
 
 if (mountingPoint == null) {
@@ -24,5 +21,22 @@ if (mountingPoint == null) {
     'The mounting point of the application was not found. Please make sure an element with `id="root"` exist in index.html.'
   )
 }
+const client = new ApolloClient({
+  uri: '/api/graphql',
+  cache: new InMemoryCache(),
+})
 
-ReactDOM.render(<>{/** @Todo */}</>, mountingPoint)
+ReactDOM.render(
+  <>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </BrowserRouter>
+    </ApolloProvider>
+  </>,
+  mountingPoint
+)
