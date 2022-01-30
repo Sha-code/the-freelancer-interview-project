@@ -11,22 +11,14 @@ interface Profile {
 }
 const ProfileForm: FunctionComponent<{ profile: Profile }> = ({ profile }) => {
   const MODIFY_PROFILE = gql`
-    mutation modifyProfile {
+    mutation modifyProfile($newProfile: Profile!) {
       modifyProfile(input: $newProfile) {
-        id
-        avatar {
-          smallUrl
-        }
-        firstname
-        lastname
-        language
-        birthDate
-        isVisible
-        retribution
+        input
       }
     }
   `
-  const [modifyProfile, newProfile] = useMutation(MODIFY_PROFILE)
+
+  const [modifyProfile, { data, loading, error }] = useMutation(MODIFY_PROFILE)
   return (
     <div>
       <Formik
@@ -37,15 +29,15 @@ const ProfileForm: FunctionComponent<{ profile: Profile }> = ({ profile }) => {
           retribution: profile.retribution,
         }}
         onSubmit={async (values) => {
-          profile.isVisible = values.isVisible
-          profile.firstname = values.firstName
-          profile.lastname = values.lastName
-          profile.retribution = values.retribution
+          const newProfile = { ...profile }
+          newProfile.isVisible = values.isVisible
+          newProfile.firstname = values.firstName
+          newProfile.lastname = values.lastName
+          newProfile.retribution = values.retribution
+          console.log(newProfile)
           modifyProfile({
-            variables: { newProfile: { ...profile } },
+            variables: { input: { ...newProfile } },
           })
-          await new Promise((r) => setTimeout(r, 500))
-          alert(JSON.stringify(values, null, 2))
         }}
       >
         <Form className="flex flex-col gap-1 w-1/2">

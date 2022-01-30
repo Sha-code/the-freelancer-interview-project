@@ -36,7 +36,7 @@ const Profile: FunctionComponent = () => {
       <div className="flex flex-col items-center justify-center gap-3 mb-10">
         <img
           className="h-32 w-32 object-cover rounded-full border"
-          src={`http://localhost:4000${data?.myProfile.avatar.smallUrl}`}
+          src={data?.myProfile.avatar.smallUrl}
           alt="user"
         />
         <h1 className="text-3xl">

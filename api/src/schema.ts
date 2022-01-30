@@ -91,6 +91,7 @@ export const resolvers: Resolvers = {
    */
   Mutation: {
     modifyProfile(input) {
+      console.log('input in mutation', input)
       const newProfile = {
         ...input,
       }
