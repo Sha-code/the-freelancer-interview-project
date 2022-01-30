@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import Moment from 'react-moment'
+import DayJS from 'react-dayjs'
 
 interface Profile {
   birthDate: string
@@ -10,7 +10,7 @@ interface Profile {
 const ProfileInformation: FunctionComponent<{ profile: Profile }> = ({ profile }) => (
   <div>
     <p>
-      Birthdate: <Moment format="DD/MM/YYYY" date={profile.birthDate} />
+      Birthdate: <DayJS format="DD/MM/YYYY" date={profile.birthDate} />
     </p>
     <p>Language: {profile.language}</p>
     <p>Retribution: {profile.retribution} €/day</p>
